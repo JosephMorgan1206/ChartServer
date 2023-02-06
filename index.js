@@ -21,7 +21,7 @@ app.use(function(req, res, next) {
 
 //mongoose connection
 //mongodb+srv://kazamaChatNode:AJYb9mmxOr4MMqsR@cluster0.ztywcu2.mongodb.net/?retryWrites=true&w=majority
-mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.mongodb.net/?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://Administrator:spyvtVpHNh7i4WxF@cluster0.wptvjv0.mongodb.net/?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true
     }).then(() => {

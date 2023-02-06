@@ -341,7 +341,6 @@ const domain = {
       })
 
       Promise.all(promises).then((ones) => {
-        console.log("kkkkkkkkkkkkkkkkkkkk", ones)
         return res.json(ones);
       })        
     } catch (err) {
