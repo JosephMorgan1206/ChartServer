@@ -91,7 +91,7 @@ module.exports.getAllMessage = async (req, res, next) => {
         //         updatedAt: msg.updatedAt
         //     };
         // }));
-        let options = { multi: true, upsert: false };
+        let options = { multi: true, upsert: true };
 
         await messageModel.updateMany({
             sender: sender, receiver: receiver
