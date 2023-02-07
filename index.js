@@ -13,11 +13,11 @@ app.use(express.json());
 
 app.use("/api/auth", userRoutes);
 app.use("/api/message", messageRoute);
-// app.use(function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   next();
-// });
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 //mongoose connection
 //mongodb+srv://kazamaChatNode:AJYb9mmxOr4MMqsR@cluster0.ztywcu2.mongodb.net/?retryWrites=true&w=majority
@@ -34,6 +34,12 @@ const server = app.listen(process.env.PORT || 5000, ()=>{
     console.log(`Chat server started at port: ${process.env.PORT}`);
 });
 
+// const io = socket(server,{
+//     cors: {
+//         origin: "*",
+//         credentials: true,
+//     },
+// });
 var io = socket.listen(server);
 //store all online users inside this map
 global.onlineUsers =  new Map();
