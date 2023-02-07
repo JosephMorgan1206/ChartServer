@@ -95,7 +95,7 @@ module.exports.getAllMessage = async (req, res, next) => {
 
         await messageModel.updateMany({
             sender: sender, receiver: receiver
-        } , { checked: true }, options );
+        } , { $set: { "checked": true } }, {multi: true} );
 
         res.json(messages);
     } catch (error) {
