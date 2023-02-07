@@ -5,9 +5,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const messageRoute = require("./routes/messagesRoute");
-var socket = require('socket.io')({
-    'transports': ['websocket', 'flashsocket','htmlfile','xhr-polling','jsonp-polling']
-    });
+const socket = require("socket.io");
 
 dotenv.config();
 app.use(cors());
