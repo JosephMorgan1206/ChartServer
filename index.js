@@ -30,7 +30,9 @@ mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.
 
     // mongoose.connect('mongodb://127.0.0.1:27017/db');
 
-const server = app.listen();
+const server = app.listen(process.env.PORT || 5000, ()=>{
+    console.log(`Chat server started at port: ${process.env.PORT}`);
+});
 
 // const requestListener = function (req, res) {};
 
