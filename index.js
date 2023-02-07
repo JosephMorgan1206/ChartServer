@@ -37,8 +37,11 @@ const server = app.listen(process.env.PORT || 5000, ()=>{
 const io = socket(server,{
     cors: {
         origin: "*",
+        methods: ["GET", "POST"],
+        transports: ['websocket', 'polling'],
         credentials: true,
     },
+    allowEIO3: true
 });
 //store all online users inside this map
 global.onlineUsers =  new Map();
@@ -55,5 +58,4 @@ io.on("connection",(socket)=>{
             socket.to(sendUserSocket).emit("msg-recieved",data);
         }
     });
-    longRunningOperation();
 });
