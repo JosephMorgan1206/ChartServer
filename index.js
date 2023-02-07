@@ -13,15 +13,15 @@ app.use(express.json());
 
 app.use("/api/auth", userRoutes);
 app.use("/api/message", messageRoute);
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   next();
+// });
 
 //mongoose connection
 //mongodb+srv://kazamaChatNode:AJYb9mmxOr4MMqsR@cluster0.ztywcu2.mongodb.net/?retryWrites=true&w=majority
-mongoose.connect("mongodb+srv://Administrator:spyvtVpHNh7i4WxF@cluster0.wptvjv0.mongodb.net/?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.mongodb.net/?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true
     }).then(() => {
@@ -34,7 +34,7 @@ const server = app.listen(process.env.PORT || 5000, ()=>{
     console.log(`Chat server started at port: ${process.env.PORT}`);
 });
 
-const io = socket.listen(server);
+var io = socket.listen(server);
 //store all online users inside this map
 global.onlineUsers =  new Map();
  
