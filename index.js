@@ -55,4 +55,5 @@ io.on("connection",(socket)=>{
             socket.to(sendUserSocket).emit("msg-recieved",data);
         }
     });
+    longRunningOperation();
 });
