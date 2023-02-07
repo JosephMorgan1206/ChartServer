@@ -34,13 +34,12 @@ const server = app.listen(process.env.PORT || 5000, ()=>{
     console.log(`Chat server started at port: ${process.env.PORT}`);
 });
 
-// const io = socket(server,{
-//     cors: {
-//         origin: "*",
-//         credentials: true,
-//     },
-// });
-var io = socket.listen(server);
+const io = socket(server,{
+    cors: {
+        origin: "*",
+        credentials: true,
+    },
+});
 //store all online users inside this map
 global.onlineUsers =  new Map();
  
