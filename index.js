@@ -56,10 +56,16 @@ io.on("connection",(socket)=>{
     socket.on("add-user",(userId)=>{
         onlineUsers.set(userId,socket.id);
     });
+    socket.on("update-msg",(data)=>{
+        const sendUserSocket = onlineUsers.get(data.receiver);
+        if(sendUserSocket) {
+            socket.to(sendUserSocket).emit("update-msg-recieved",data);
+        }
+    });
     socket.on("send-msg",(data)=>{
         const sendUserSocket = onlineUsers.get(data.receiver);
         if(sendUserSocket) {
-            socket.to(sendUserSocket).emit("msg-recieved",data);
+            socket.to(sendUserSocket).emit("add-msg-recieved",data);
         }
     });
 });
