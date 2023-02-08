@@ -348,6 +348,50 @@ const domain = {
     }
   };
 
+  module.exports.searchUser = async (req, res, next) => {
+    try {
+      let regex = new RegExp(req.body.keyword, 'i') // i for case insensitive
+      const users  = await User.find({
+        _id:{ $ne:req.body.id },
+        username:{$regex: regex}
+      }).select([
+        "address",
+        "username",
+        "role",
+        "isKraken",
+        "isWhale",
+        "isShark",
+        "isDolphin",
+        "isTurtle",
+        "isHolder",
+        "isLiquidityProvider",
+        "avatarImage",
+        "_id"
+      ]);
+      console.log("pppppppppppppppppppp", users)
+
+      let promises = [];
+      users.map((o) => {
+        let promise = new Promise((resolve, reject) => {
+          Message.countDocuments({checked: false, receiver: req.params.id, sender: o._id}, function(err, c) {
+            o = {
+              ...o._doc,
+              count: c
+            }
+            resolve(o)
+          });
+        })
+        promises.push(promise)
+      })
+
+      Promise.all(promises).then((ones) => {
+        return res.json(ones);
+      })        
+    } catch (err) {
+      next(err);
+    }
+  };
+
   module.exports.getUser = async (req, res, next) => {
     try {
       const { address } = req.body;
