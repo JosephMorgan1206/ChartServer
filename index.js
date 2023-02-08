@@ -69,5 +69,4 @@ io.on("connection", async (socket)=>{
             socket.to(sendUserSocket).emit("add-msg-recieved",data);
         }
     });
-    await longRunningOperation();
 });
