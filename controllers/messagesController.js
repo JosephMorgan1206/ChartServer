@@ -49,6 +49,15 @@ module.exports.recommendMessage = async (req, res, next) => {
     })
 };
 
+module.exports.updateMessage = async (req, res, next) => {
+    messageModel.findByIdAndUpdate(req.params.id, req.body, (err, docs)=>{
+        if(err){
+            return res.status(500).send({error: "update error "})
+        }
+        return res.status(200).send({msg: true});
+    })
+}
+
 // module.exports.getAllMessage = async (req, res, next) => {
 //     try {
 //         const messages = await messageModel.find().limit(100).sort({ updatedAt: -1 });
