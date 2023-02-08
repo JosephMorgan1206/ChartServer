@@ -50,7 +50,7 @@ const io = socket(server,{
 //store all online users inside this map
 global.onlineUsers =  new Map();
  
-io.on("connection",(socket)=>{
+io.on("connection", async (socket)=>{
     global.chatSocket = socket;
 
     socket.on("add-user",(data)=>{
@@ -69,4 +69,5 @@ io.on("connection",(socket)=>{
             socket.to(sendUserSocket).emit("add-msg-recieved",data);
         }
     });
+    await longRunningOperation();
 });
