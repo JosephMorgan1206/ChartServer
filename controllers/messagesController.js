@@ -50,7 +50,8 @@ module.exports.recommendMessage = async (req, res, next) => {
 };
 
 module.exports.updateMessage = async (req, res, next) => {
-    messageModel.findByIdAndUpdate(req.params.id, req.body, (err, docs)=>{
+    const {message, time} = req.body;
+    messageModel.findByIdAndUpdate(req.params.id, { message:{text: message}, time: time } , (err, docs)=>{
         if(err){
             return res.status(500).send({error: "update error "})
         }
