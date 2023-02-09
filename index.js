@@ -65,19 +65,18 @@ io.on("connection", (socket)=>{
 
     socket.on("add-user",(data)=>{
         onlineUsers.set(data._id, socket.id);
+        console.log("gggggggggggggggg", socket.id);
         socket.broadcast.emit("add-user-recieved",data);
     });
     socket.on("update-msg",(data)=>{
         const sendUserSocket = onlineUsers.get(data.receiver);
         if(sendUserSocket) {
-            socket.to(sendUserSocket).emit("update-msg-recieved",data);
+            io.to(sendUserSocket).emit("update-msg-recieved",data);
         }
     });
     socket.on("send-msg",(data)=>{
-        const sendUserSocket = onlineUsers.get(data.sender);
+        const sendUserSocket = onlineUsers.get(data.receiver);
         if(sendUserSocket) {
-            console.log("gggggggggggggggg", sendUserSocket);
-            console.log("gggggggggggggggg", onlineUsers);
             io.to(sendUserSocket).emit("add-msg-recieved",data);
         }
     });
