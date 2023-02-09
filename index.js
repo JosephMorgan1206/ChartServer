@@ -38,9 +38,19 @@ const server = app.listen(process.env.PORT || 5000, ()=>{
 
 // const server = http.createServer(requestListener);
 
+// const io = socket(server,{
+//     cors: {
+//         origin: "https://hansxyx.com",
+//         methods: ["GET", "POST"],
+//         transports: ['websocket', 'polling'],
+//         credentials: true,
+//     },
+//     allowEIO3: true
+// });
+
 const io = socket(server,{
     cors: {
-        origin: "https://hansxyx.com",
+        origin: "http://localhost:3000",
         methods: ["GET", "POST"],
         transports: ['websocket', 'polling'],
         credentials: true,
@@ -66,7 +76,9 @@ io.on("connection", (socket)=>{
     socket.on("send-msg",(data)=>{
         const sendUserSocket = onlineUsers.get(data.sender);
         if(sendUserSocket) {
-            socket.to(sendUserSocket).emit("add-msg-recieved",data);
+            console.log("gggggggggggggggg", sendUserSocket);
+            console.log("gggggggggggggggg", onlineUsers);
+            io.to(sendUserSocket).emit("add-msg-recieved",data);
         }
     });
 });
