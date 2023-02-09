@@ -55,7 +55,7 @@ io.on("connection", async (socket)=>{
 
     socket.on("add-user",(data)=>{
         onlineUsers.set(data._id, socket.id);
-        // socket.join(socket.id);
+        socket.join(socket.id);
         socket.broadcast.emit("add-user-recieved",data);
     });
     socket.on("update-msg",(data)=>{
