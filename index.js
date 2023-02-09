@@ -65,8 +65,6 @@ io.on("connection", async (socket)=>{
     });
     socket.on("send-msg",(data)=>{
         const sendUserSocket = onlineUsers.get(data.sender);
-        console.log("qqqqqqqqqqqqqqqqqqqqq1", sendUserSocket);
-        console.log("qqqqqqqqqqqqqqqqqqqqq2", data);
         if(sendUserSocket) {
             socket.to(sendUserSocket).emit("add-msg-recieved",data);
         }
