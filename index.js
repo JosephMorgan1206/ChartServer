@@ -69,7 +69,7 @@ io.on("connection", async (socket)=>{
         console.log("qqqqqqqqqqqqqqqqqqqqq1", sendUserSocket);
         console.log("qqqqqqqqqqqqqqqqqqqqq2", data);
         if(sendUserSocket) {
-            io.to(sendUserSocket).emit("add-msg-recieved",data);
+            io.broadcast.to(sendUserSocket).emit("add-msg-recieved",data);
         }
     });
 });
