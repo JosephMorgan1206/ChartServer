@@ -40,7 +40,7 @@ const server = app.listen(process.env.PORT || 5000, ()=>{
 
 const io = socket(server,{
     cors: {
-        origin: "*",
+        origin: "https://hansxyx.com",
         methods: ["GET", "POST"],
         transports: ['websocket', 'polling'],
         credentials: true,
