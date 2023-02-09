@@ -55,8 +55,7 @@ io.on("connection", async (socket)=>{
 
     socket.on("add-user",(data)=>{
         onlineUsers.set(data._id, socket.id);
-        socket.join(socket.id);
-        socket.broadcast.emit("add-user-recieved",data);
+        // socket.broadcast.emit("add-user-recieved",data);
     });
     socket.on("update-msg",(data)=>{
         const sendUserSocket = onlineUsers.get(data.receiver);
@@ -69,7 +68,7 @@ io.on("connection", async (socket)=>{
         console.log("qqqqqqqqqqqqqqqqqqqqq1", sendUserSocket);
         console.log("qqqqqqqqqqqqqqqqqqqqq2", data);
         if(sendUserSocket) {
-            socket.broadcast.to(sendUserSocket).emit("add-msg-recieved",data);
+            socket.to(sendUserSocket).emit("add-msg-recieved",data);
         }
     });
 });
