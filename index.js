@@ -50,12 +50,12 @@ const io = socket(server,{
 //store all online users inside this map
 global.onlineUsers =  new Map();
  
-io.on("connection", async (socket)=>{
+io.on("connection", (socket)=>{
     global.chatSocket = socket;
 
     socket.on("add-user",(data)=>{
         onlineUsers.set(data._id, socket.id);
-        // socket.broadcast.emit("add-user-recieved",data);
+        socket.broadcast.emit("add-user-recieved",data);
     });
     socket.on("update-msg",(data)=>{
         const sendUserSocket = onlineUsers.get(data.receiver);
