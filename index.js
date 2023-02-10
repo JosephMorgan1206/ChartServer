@@ -62,6 +62,7 @@ global.onlineUsers =  new Map();
  
 io.on("connection", (socket)=>{
     global.chatSocket = socket;
+    socket.join(socket.id);
 
     // socket.on("add-user",(data)=>{
     //     onlineUsers.set(data._id, socket.id);
