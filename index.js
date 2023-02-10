@@ -75,7 +75,7 @@ io.on("connection", (socket)=>{
         }
     });
     socket.on("send-msg",(data)=>{
-        socket.broadcast.emit("add-msg-recieved",data);
+        io.broadcast.emit("add-msg-recieved",data);
         // const sendUserSocket = onlineUsers.get(data.receiver);
         // if(sendUserSocket) {
         // }
