@@ -62,10 +62,10 @@ global.onlineUsers =  new Map();
  
 io.on("connection", (socket)=>{
     global.chatSocket = socket;
-    socket.join(socket.id);
 
     socket.on("add-user",(data)=>{
         // io.emit("add-user-recieved",data);
+        socket.join(socket.id);
         io.in(socket.id).emit("add-user-recieved", data);
         onlineUsers.set(data._id, socket.id);
     });
@@ -76,11 +76,11 @@ io.on("connection", (socket)=>{
         }
     });
     socket.on("send-msg",(data)=>{
-        // const sendUserSocket = onlineUsers.get(data.receiver);
+        const sendUserSocket = onlineUsers.get(data.receiver);
         // if(sendUserSocket) {
         //     // io.to(sendUserSocket).emit("add-msg-recieved",data);
-        //     socket.to(sendUserSocket).emit("add-msg-recieved",data);
+            socket.to(sendUserSocket).emit("add-msg-recieved",data);
         // }
-        io.emit("add-msg-recieved",data);
+        // io.emit("add-msg-recieved",data);
     });
 });
