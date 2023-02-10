@@ -38,15 +38,15 @@ const server = app.listen(process.env.PORT || 5000, ()=>{
 
 // const server = http.createServer(requestListener);
 
-const io = socket(server,{
-    cors: {
-        origin: "*",
-        methods: ["GET", "POST"],
-        transports: ['websocket', 'polling'],
-        credentials: true,
-    },
-    allowEIO3: true
-});
+// const io = socket(server,{
+//     cors: {
+//         origin: "*",
+//         methods: ["GET", "POST"],
+//         transports: ['websocket', 'polling'],
+//         credentials: true,
+//     },
+//     allowEIO3: true
+// });
 
 // const io = socket(server,{
 //     cors: {
