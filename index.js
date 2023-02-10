@@ -68,6 +68,7 @@ io.on("connection", (socket)=>{
         socket.join(socket.id);
         io.in(socket.id).emit("add-user-recieved", data);
         onlineUsers.set(data._id, socket.id);
+        console.log("yyyyyyyyyyyyyyyyy", socket.id);
     });
     socket.on("update-msg",(data)=>{
         const sendUserSocket = onlineUsers.get(data.receiver);
@@ -77,6 +78,7 @@ io.on("connection", (socket)=>{
     });
     socket.on("send-msg",(data)=>{
         const sendUserSocket = onlineUsers.get(data.receiver);
+        console.log("ppppppppppppp", sendUserSocket);
         // if(sendUserSocket) {
         //     // io.to(sendUserSocket).emit("add-msg-recieved",data);
             socket.to(sendUserSocket).emit("add-msg-recieved",data);
