@@ -1,4 +1,4 @@
-const { register, loginOrRegister, setUserName, setAvatar,setKraken, setWhale, setShark, setDolphin, setTurtle, setHolder, setLiquidityProvider, getAllUsers, getUser, isValidName, searchUser } = require("../controllers/usersController");
+const { login, register, loginOrRegister, setUserName, setAvatar,setKraken, setWhale, setShark, setDolphin, setTurtle, setHolder, setLiquidityProvider, getAllUsers, getUser, isValidName, searchUser } = require("../controllers/usersController");
 const { login } = require("../controllers/usersController");
 const { logOut } = require("../controllers/usersController");
 
@@ -6,6 +6,7 @@ const router = require("express").Router();
 
 // router.post("/register", register);
 router.post("/connect", loginOrRegister);
+router.post("/login", login);
 router.post("/getUser", getUser);
 router.post("/search", searchUser);
 router.post("/isValidName", isValidName);

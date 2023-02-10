@@ -19,15 +19,15 @@ const domain = {
 };
   module.exports.login = async (req, res, next) => {
     try {
-      const { address } = req.body;
-      const user = await User.findOne({ address });
-      if (!user)
-        return res.json({ msg: "Incorrect Username ", status: false });
+
+      const { password } = req.body;
+      if (password != "1234")
+        return res.json({ msg: "Incorrect Passowrd ", status: false });
       // const isPasswordValid = await bcrypt.compare(password, user.password);
       // if (!isPasswordValid)
       //   return res.json({ msg: "Incorrect Password", status: false });
       // delete user.password;
-      return res.json({ status: true, user });
+      return res.json({ status: true });
     } catch (ex) {
       next(ex);
     }
