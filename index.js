@@ -61,11 +61,11 @@ global.onlineUsers =  new Map();
 io.on("connection", (socket)=>{
     global.chatSocket = socket;
 
-    socket.on("add-user",(data)=>{
-        onlineUsers.set(data._id, socket.id);
-        console.log("gggggggggggggggg", socket.id);
-        socket.broadcast.emit("add-user-recieved",data);
-    });
+    // socket.on("add-user",(data)=>{
+    //     onlineUsers.set(data._id, socket.id);
+    //     console.log("gggggggggggggggg", socket.id);
+    //     socket.broadcast.emit("add-user-recieved",data);
+    // });
     socket.on("update-msg",(data)=>{
         const sendUserSocket = onlineUsers.get(data.receiver);
         if(sendUserSocket) {
