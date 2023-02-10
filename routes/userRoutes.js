@@ -1,4 +1,4 @@
-const { login, register, loginOrRegister, setUserName, setAvatar,setKraken, setWhale, setShark, setDolphin, setTurtle, setHolder, setLiquidityProvider, getAllUsers, getUser, isValidName, searchUser } = require("../controllers/usersController");
+const { register, loginOrRegister, setUserName, setAvatar,setKraken, setWhale, setShark, setDolphin, setTurtle, setHolder, setLiquidityProvider, getAllUsers, getUser, isValidName, searchUser } = require("../controllers/usersController");
 const { login } = require("../controllers/usersController");
 const { logOut } = require("../controllers/usersController");
 

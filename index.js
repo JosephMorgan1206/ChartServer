@@ -41,6 +41,8 @@ const server = app.listen(process.env.PORT || 5000, ()=>{
 const io = socket(server,{
     cors: {
         origin: "*",
+        methods: ["GET", "POST"],
+        transports: ['websocket', 'polling'],
         credentials: true,
     },
     allowEIO3: true
