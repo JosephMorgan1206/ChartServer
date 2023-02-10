@@ -38,25 +38,25 @@ const server = app.listen(process.env.PORT || 5000, ()=>{
 
 // const server = http.createServer(requestListener);
 
-const io = socket(server,{
-    cors: {
-        origin: "https://hansxyx.com",
-        methods: ["GET", "POST"],
-        transports: ['websocket', 'polling'],
-        credentials: true,
-    },
-    allowEIO3: true
-});
-
 // const io = socket(server,{
 //     cors: {
-//         origin: "http://localhost:3000",
+//         origin: "https://hansxyx.com",
 //         methods: ["GET", "POST"],
 //         transports: ['websocket', 'polling'],
 //         credentials: true,
 //     },
 //     allowEIO3: true
 // });
+
+const io = socket(server,{
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"],
+        transports: ['websocket', 'polling'],
+        credentials: true,
+    },
+    allowEIO3: true
+});
 //store all online users inside this map
 global.onlineUsers =  new Map();
  
@@ -64,11 +64,11 @@ io.on("connection", (socket)=>{
     global.chatSocket = socket;
     socket.join(socket.id);
 
-    // socket.on("add-user",(data)=>{
-    //     onlineUsers.set(data._id, socket.id);
-    //     console.log("gggggggggggggggg", socket.id);
-    //     socket.broadcast.emit("add-user-recieved",data);
-    // });
+    socket.on("add-user",(data)=>{
+        // io.emit("add-user-recieved",data);
+        io.in(socket.id).emit("add-user-recieved", data);
+        onlineUsers.set(data._id, socket.id);
+    });
     socket.on("update-msg",(data)=>{
         const sendUserSocket = onlineUsers.get(data.receiver);
         if(sendUserSocket) {
@@ -78,7 +78,8 @@ io.on("connection", (socket)=>{
     socket.on("send-msg",(data)=>{
         // const sendUserSocket = onlineUsers.get(data.receiver);
         // if(sendUserSocket) {
-        //     io.to(sendUserSocket).emit("add-msg-recieved",data);
+        //     // io.to(sendUserSocket).emit("add-msg-recieved",data);
+        //     socket.to(sendUserSocket).emit("add-msg-recieved",data);
         // }
         io.emit("add-msg-recieved",data);
     });

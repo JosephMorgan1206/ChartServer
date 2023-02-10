@@ -368,7 +368,6 @@ const domain = {
         "avatarImage",
         "_id"
       ]);
-      console.log("pppppppppppppppppppp", users)
 
       let promises = [];
       users.map((o) => {
