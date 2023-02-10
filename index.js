@@ -71,13 +71,13 @@ io.on("connection", (socket)=>{
     socket.on("update-msg",(data)=>{
         const sendUserSocket = onlineUsers.get(data.receiver);
         if(sendUserSocket) {
-            io.to(sendUserSocket).emit("update-msg-recieved",data);
+            socket.broadcast.emit("update-msg-recieved",data);
         }
     });
     socket.on("send-msg",(data)=>{
-        const sendUserSocket = onlineUsers.get(data.sender);
+        const sendUserSocket = onlineUsers.get(data.receiver);
         if(sendUserSocket) {
-            io.to(sendUserSocket).emit("add-msg-recieved",data);
+            socket.broadcast.emit("add-msg-recieved",data);
         }
     });
 });
