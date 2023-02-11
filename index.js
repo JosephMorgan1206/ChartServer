@@ -9,6 +9,7 @@ const socket = require("socket.io");
 
 dotenv.config();
 app.use(cors());
+app.use(express.json());
 
 app.use("/api/auth", userRoutes);
 app.use("/api/message", messageRoute);
