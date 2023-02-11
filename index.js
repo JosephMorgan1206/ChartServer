@@ -11,7 +11,7 @@ const messageRoute = require("./routes/messagesRoute");
 const socket = require("socket.io");
 
 dotenv.config();
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Headers', '*');
@@ -44,13 +44,13 @@ const server = https.createServer(app);
     server.listen(5000);
 
 const io = socket(server,{
-    cors: {
-        origin: "https://hansxyx.com",
-        credentials: true,
-        methods: ["GET", "POST"],
-        allowedHeaders: ["my-custom-header"],
-        transports: ['websocket', 'polling'],
-    },
+    // cors: {
+    //     origin: "http://localhost:3000",
+    //     credentials: true,
+    //     methods: ["GET", "POST"],
+    //     allowedHeaders: ["my-custom-header"],
+    //     transports: ['websocket', 'polling'],
+    // },
     allowEIO3: true
 });
 
