@@ -28,7 +28,7 @@ mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.
 
 const io = socket(server,{
     cors: {
-        origin: "https://hansxyx.com",
+        origin: "https://chart-server-six.vercel.app",
         credentials: true,
         methods: ["GET", "POST"],
         transports: ['websocket', 'polling'],
