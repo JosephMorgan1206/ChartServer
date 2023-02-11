@@ -8,8 +8,7 @@ const messageRoute = require("./routes/messagesRoute");
 const socket = require("socket.io");
 
 dotenv.config();
-app.use(express.json());
-
+app.use(cors());
 
 app.use("/api/auth", userRoutes);
 app.use("/api/message", messageRoute);
