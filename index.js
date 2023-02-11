@@ -43,7 +43,7 @@ mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.
     }).catch((err) => console.log(err));
 
 const server = https.createServer(app);
-    server.listen(5000);
+    server.listen(process.env.PORT || 5000);
 
 const io = socket(server,{
     // cors: {
