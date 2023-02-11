@@ -42,7 +42,7 @@ mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.
         console.log("DB Connection Successful!")
     }).catch((err) => console.log(err));
 
-const server = http.createServer(app);
+const server = https.createServer(app);
     server.listen(5000);
 
 const io = socket(server,{
