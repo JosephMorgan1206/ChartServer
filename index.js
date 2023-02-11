@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express(); 
 const https = require('https');
+const http = require('http');
 const cors  = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
@@ -41,7 +42,7 @@ mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.
         console.log("DB Connection Successful!")
     }).catch((err) => console.log(err));
 
-const server = https.createServer(app);
+const server = http.createServer(app);
     server.listen(5000);
 
 const io = socket(server,{
