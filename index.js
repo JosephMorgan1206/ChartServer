@@ -30,10 +30,10 @@ const io = socket(server,{
     cors: {
         origin: "*",
         credentials: true,
-        // methods: ["GET", "POST"],
-        // transports: ['websocket', 'polling'],
+        methods: ["GET", "POST"],
+        transports: ['websocket', 'polling'],
     },
-    // allowEIO3: true
+    allowEIO3: true
 });
 
 //store all online users inside this map
