@@ -28,12 +28,13 @@ mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.
 
 const io = socket(server,{
     cors: {
-        origin: "https://chart-server-six.vercel.app",
+        origin: "https://hansxyx.com",
         credentials: true,
         methods: ["GET", "POST"],
-        transports: ['websocket', 'polling'],
+        allowedHeaders: ["my-custom-header"],
+        // transports: ['websocket', 'polling'],
     },
-    allowEIO3: true
+    // allowEIO3: true
 });
 
 //store all online users inside this map
