@@ -1,8 +1,11 @@
 const express = require("express");
 const app = express(); 
+const https = require('https');
 const cors  = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const fs = require('fs');  
+
 const userRoutes = require("./routes/userRoutes");
 const messageRoute = require("./routes/messagesRoute");
 const socket = require("socket.io");
@@ -14,6 +17,14 @@ app.use(express.json());
 app.use("/api/auth", userRoutes);
 app.use("/api/message", messageRoute);
 
+// var options = {
+//     key: fs.readFileSync('ssl/private/domain.com.key'),
+//     cert: fs.readFileSync('ssl/certs/domain.com.crt'),
+//     ca: fs.readFileSync('ssl/certs/domain.com.cabundle'),
+//     requestCert: false,
+//     rejectUnauthorized: false
+// };
+
 //mongoose connection
 mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.mongodb.net/?retryWrites=true&w=majority", {
     useNewUrlParser: true,
@@ -22,9 +33,8 @@ mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.
         console.log("DB Connection Successful!")
     }).catch((err) => console.log(err));
 
- const server = app.listen(process.env.PORT, ()=>{
-    console.log(`Server started on Port ${process.env.PORT}`);
-});
+const server = https.createServer(app);
+    server.listen(5000);
 
 const io = socket(server,{
     cors: {
@@ -32,9 +42,9 @@ const io = socket(server,{
         credentials: true,
         methods: ["GET", "POST"],
         allowedHeaders: ["my-custom-header"],
-        // transports: ['websocket', 'polling'],
+        transports: ['websocket', 'polling'],
     },
-    // allowEIO3: true
+    allowEIO3: true
 });
 
 //store all online users inside this map
