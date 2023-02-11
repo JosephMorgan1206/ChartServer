@@ -7,6 +7,15 @@ const userRoutes = require("./routes/userRoutes");
 const messageRoute = require("./routes/messagesRoute");
 const socket = require("socket.io");
 
+dotenv.config();
+app.use(cors());
+app.use(express.json());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
 app.use("/api/auth", userRoutes);
 app.use("/api/message", messageRoute);
 
@@ -18,14 +27,15 @@ mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.
         console.log("DB Connection Successful!")
     }).catch((err) => console.log(err));
 
- const server = app.listen(5000, ()=>{
+ const server = app.listen(process.env.PORT, ()=>{
     console.log(`Server started on Port ${process.env.PORT}`);
 });
 
 const io = socket(server,{
     cors: {
-        origin: "*"
+        origin: ""
     },
+    allowEIO3: true
 });
 
 //store all online users inside this map
