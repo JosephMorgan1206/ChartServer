@@ -33,7 +33,10 @@ mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.
 
 const io = socket(server,{
     cors: {
-        origin: ""
+        origin: "https://hansxyx.com",
+        credentials: true,
+        methods: ["GET", "POST"],
+        transports: ['websocket', 'polling'],
     },
     allowEIO3: true
 });
