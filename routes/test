@@ -1,0 +1,9 @@
+const router = require("express").Router();
+
+// router.post("/register", register);
+router.get("/test", function(req, res) {
+	res.set({ 'Content-Type': 'text/json', 'access-control-allow-origin': '*' })
+	res.send('router');
+});
+
+module.exports = router;
