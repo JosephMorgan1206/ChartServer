@@ -48,19 +48,20 @@ const server = app.listen(process.env.PORT || 5000, ()=>{
 //     allowEIO3: true
 // });
 
-// const io = socket(server,{
-//     cors: {
-//         origin: "http://localhost:3000",
-//         methods: ["GET", "POST"],
-//         transports: ['websocket', 'polling'],
-//         credentials: true,
-//     },
-//     allowEIO3: true
-// });
+const io = socket(server,{
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"],
+        transports: ['websocket', 'polling'],
+        credentials: true,
+    },
+    // allowEIO3: true
+});
 //store all online users inside this map
 global.onlineUsers =  new Map();
  
 io.on("connection", (socket)=>{
+
     global.chatSocket = socket;
 
     socket.on("add-user",(data)=>{
@@ -68,7 +69,6 @@ io.on("connection", (socket)=>{
         socket.join(socket.id);
         io.in(socket.id).emit("add-user-recieved", data);
         onlineUsers.set(data._id, socket.id);
-        console.log("yyyyyyyyyyyyyyyyy", socket.id);
     });
     socket.on("update-msg",(data)=>{
         const sendUserSocket = onlineUsers.get(data.receiver);
@@ -78,10 +78,9 @@ io.on("connection", (socket)=>{
     });
     socket.on("send-msg",(data)=>{
         const sendUserSocket = onlineUsers.get(data.receiver);
-        console.log("ppppppppppppp", sendUserSocket);
         // if(sendUserSocket) {
         //     // io.to(sendUserSocket).emit("add-msg-recieved",data);
-            socket.to(sendUserSocket).emit("add-msg-recieved",data);
+            io.emit("add-msg-recieved",data);
         // }
         // io.emit("add-msg-recieved",data);
     });
