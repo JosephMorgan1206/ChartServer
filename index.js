@@ -15,7 +15,7 @@ app.use("/api/auth", userRoutes);
 app.use("/api/message", messageRoute);
 
 //mongoose connection
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.mongodb.net/?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true
     }).then(() => {
@@ -27,10 +27,10 @@ mongoose.connect(process.env.MONGO_URL, {
 });
 
 const io = socket(server,{
-    // cors: {
-    //     origin: "*",
-    //     credentials: true,
-    // },
+    cors: {
+        origin: "*",
+        credentials: true,
+    },
 });
 //store all online users inside this map
 global.onlineUsers =  new Map();
