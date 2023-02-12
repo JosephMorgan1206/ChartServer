@@ -22,16 +22,15 @@ mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.
         console.log("DB Connection Successful!")
     }).catch((err) => console.log(err));
 
- const server = app.listen(process.env.PORT, ()=>{
+const server = app.listen(process.env.PORT, ()=>{
     console.log(`Server started on Port ${process.env.PORT}`);
 });
 
 const io = socket(server,{
     cors: {
-        origin: "https://chart-server-six.vercel.app",
+        origin: "*:*",
         credentials: true,
         methods: ["GET", "POST"],
-        allowedHeaders: ["my-custom-header"],
         // transports: ['websocket', 'polling'],
     },
     // allowEIO3: true

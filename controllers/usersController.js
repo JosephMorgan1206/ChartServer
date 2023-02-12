@@ -67,7 +67,6 @@ const domain = {
   };
 
   module.exports.loginOrRegister = async (req, res, next) => {
-    return res.json({ status: true, user: 'sdlkfjldkfjsdfsdf'});
     try {
       const { address, isKraken, isWhale, isShark, isDolpin, isTurtle, isHolder, isLiquidityProvider } = req.body;
       let user = await User.findOne({ address: address });
