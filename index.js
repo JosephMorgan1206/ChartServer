@@ -7,8 +7,16 @@ const userRoutes = require("./routes/userRoutes");
 const messageRoute = require("./routes/messagesRoute");
 const socket = require("socket.io");
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+    next();
+});
+
 dotenv.config();
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", userRoutes);
@@ -28,7 +36,7 @@ mongoose.connect(process.env.MONGO_URL, {
 
 const io = socket(server,{
     cors: {
-        origin: "https://hansxyx.com",
+        origin: "*",
         credentials: true,
     },
 });
