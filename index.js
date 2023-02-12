@@ -16,7 +16,7 @@ app.use(function(req, res, next) {
 });
 
 dotenv.config();
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", userRoutes);
@@ -35,7 +35,11 @@ const server = app.listen(process.env.PORT, ()=>{
 });
 
 const io = socket(server,{
-
+    cors: {
+        origin: "*",
+        credentials: true,
+        methods: ["GET", "POST"],
+    },
     transports: ['websocket', 'polling'],
     allowEIO3: true
 });
