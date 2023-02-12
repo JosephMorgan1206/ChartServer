@@ -20,7 +20,13 @@ const httpsServer = createServer({
     cert: readFileSync("/path/to/my/cert.pem")
   });
   
-const io = new Server(httpsServer);
+const io = new Server(httpsServer, {
+    cors: {
+        origin: "*",
+        credentials: true,
+        methods: ["GET", "POST"],
+    },
+});
 httpsServer.listen(process.env.PORT);
 
 //mongoose connection
