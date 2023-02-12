@@ -26,7 +26,15 @@ const server = app.listen(process.env.PORT, ()=>{
     console.log(`Server started on Port ${process.env.PORT}`);
 });
 
-const io = socket.listen(server);
+const io = socket(server,{
+    cors: {
+        origin: "http://hansxyx.com",
+        credentials: true,
+        methods: ["GET", "POST"],
+        // transports: ['websocket', 'polling'],
+    },
+    // allowEIO3: true
+});
 
 //store all online users inside this map
 global.onlineUsers =  new Map();
