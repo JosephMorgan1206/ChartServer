@@ -2,6 +2,7 @@ const express = require("express");
 const app = express(); 
 const cors  = require("cors");
 const mongoose = require("mongoose");
+const https = require("https");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const messageRoute = require("./routes/messagesRoute");
@@ -30,9 +31,10 @@ mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.
         console.log("DB Connection Successful!")
     }).catch((err) => console.log(err));
 
-const server = app.listen(process.env.PORT, ()=>{
+app.listen(process.env.PORT, ()=>{
     console.log(`Server started on Port ${process.env.PORT}`);
 });
+const server = https.createServer(app);
 
 const io = socket(server,{
     cors: {
