@@ -1,25 +1,18 @@
 const express = require("express");
 const app = express(); 
+const cors  = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const messageRoute = require("./routes/messagesRoute");
 const socket = require("socket.io");
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header("Access-Control-Allow-Headers", "Content-Type");
-    res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
-    next();
-});
-
 dotenv.config();
 // app.use(cors());
 app.use(express.json());
 
-app.use("https://chart-server-two.vercel.app/api/auth", userRoutes);
-app.use("https://chart-server-two.vercel.app/api/message", messageRoute);
+app.use("/api/auth", userRoutes);
+app.use("/api/message", messageRoute);
 
 //mongoose connection
 mongoose.connect(process.env.MONGO_URL, {
@@ -34,14 +27,13 @@ mongoose.connect(process.env.MONGO_URL, {
 });
 
 const io = socket(server,{
-    cors: {
-        origin: "*",
-        credentials: true,
-    },
+    // cors: {
+    //     origin: "*",
+    //     credentials: true,
+    // },
 });
 //store all online users inside this map
 global.onlineUsers =  new Map();
- 
 io.on("connection",(socket)=>{
     global.chatSocket = socket;
     socket.on("add-user",(userId)=>{
