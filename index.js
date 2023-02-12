@@ -31,13 +31,20 @@ mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.
         console.log("DB Connection Successful!")
     }).catch((err) => console.log(err));
 
-// app.listen(process.env.PORT, ()=>{
-//     console.log(`Server started on Port ${process.env.PORT}`);
-// });
+app.listen(process.env.PORT, ()=>{
+    console.log(`Server started on Port ${process.env.PORT}`);
+});
 const server = https.createServer(app);
 
-const io = socket.listen(server);
-server.listen(process.env.PORT);
+const io = socket(server,{
+    cors: {
+        origin: "*",
+        credentials: true,
+        methods: ["GET", "POST"],
+    },
+    transports: ['websocket', 'polling'],
+    allowEIO3: true
+});
 
 //store all online users inside this map
 global.onlineUsers =  new Map();
