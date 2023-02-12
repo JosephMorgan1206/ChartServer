@@ -21,6 +21,7 @@ const httpsServer = createServer({
   });
   
 const io = new Server(httpsServer);
+httpsServer.listen(process.env.PORT);
 
 //mongoose connection
 mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.mongodb.net/?retryWrites=true&w=majority", {
