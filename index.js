@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express(); 
-const cors  = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
@@ -19,8 +18,8 @@ dotenv.config();
 // app.use(cors());
 app.use(express.json());
 
-app.use("/api/auth", userRoutes);
-app.use("/api/message", messageRoute);
+app.use("https://chart-server-two.vercel.app/api/auth", userRoutes);
+app.use("https://chart-server-two.vercel.app/api/message", messageRoute);
 
 //mongoose connection
 mongoose.connect(process.env.MONGO_URL, {
