@@ -9,11 +9,12 @@ const userRoutes = require("./routes/userRoutes");
 const messageRoute = require("./routes/messagesRoute");
 const socket = require("socket.io");
 
+var key = fs.readFileSync(__dirname + '/../certs/selfsigned.key');
+var cert = fs.readFileSync(__dirname + '/../certs/selfsigned.crt');
 var options = {
-    ca: [fs.readFileSync(PATH_TO_BUNDLE_CERT_1), fs.readFileSync(PATH_TO_BUNDLE_CERT_2)],
-    cert: fs.readFileSync(PATH_TO_CERT),
-    key: fs.readFileSync(PATH_TO_KEY)
-  };
+  key: key,
+  cert: cert
+};
 
 dotenv.config();
 // app.use(cors());
