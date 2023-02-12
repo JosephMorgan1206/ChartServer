@@ -35,13 +35,9 @@ const server = app.listen(process.env.PORT, ()=>{
 });
 
 const io = socket(server,{
-    cors: {
-        origin: "*",
-        credentials: true,
-        methods: ["GET", "POST"],
-        // transports: ['websocket', 'polling'],
-    },
-    // allowEIO3: true
+
+        transports: ['websocket', 'polling'],
+    allowEIO3: true
 });
 
 //store all online users inside this map
