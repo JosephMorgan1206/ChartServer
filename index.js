@@ -1,6 +1,4 @@
 const express = require("express");
-const https = require('https');
-var fs = require('fs');
 const app = express(); 
 const cors  = require("cors");
 const mongoose = require("mongoose");
@@ -9,16 +7,9 @@ const userRoutes = require("./routes/userRoutes");
 const messageRoute = require("./routes/messagesRoute");
 const socket = require("socket.io");
 
-var key = fs.readFileSync(__dirname + '/certs/selfsigned.key');
-var cert = fs.readFileSync(__dirname + '/certs/selfsigned.crt');
-var options = {
-  key: key,
-  cert: cert
-};
-
 dotenv.config();
 app.use(cors());
-// app.use(express.json());
+app.use(express.json());
 
 app.use("/api/auth", userRoutes);
 app.use("/api/message", messageRoute);
@@ -31,17 +22,15 @@ mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.
         console.log("DB Connection Successful!")
     }).catch((err) => console.log(err));
 
-    const server = https.createServer(options, app);
- server.listen(process.env.PORT, ()=>{
+ const server = app.listen(process.env.PORT, ()=>{
     console.log(`Server started on Port ${process.env.PORT}`);
 });
 
-const io = socket(server, {
+const io = socket(server,{
     cors: {
         origin: "*",
         credentials: true,
-        methods: ["GET", "POST"],
-    },
+    }
 });
 //store all online users inside this map
 global.onlineUsers =  new Map();
