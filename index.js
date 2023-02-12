@@ -8,34 +8,30 @@ const messageRoute = require("./routes/messagesRoute");
 const socket = require("socket.io");
 
 dotenv.config();
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", userRoutes);
 app.use("/api/message", messageRoute);
 
 //mongoose connection
-mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.mongodb.net/?retryWrites=true&w=majority", {
+mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
     }).then(() => {
         console.log("DB Connection Successful!")
     }).catch((err) => console.log(err));
 
-const server = app.listen(process.env.PORT, ()=>{
+ const server = app.listen(process.env.PORT, ()=>{
     console.log(`Server started on Port ${process.env.PORT}`);
 });
 
 const io = socket(server,{
     cors: {
-        origin: "*:*",
+        origin: "https://hansxyx.com",
         credentials: true,
-        methods: ["GET", "POST"],
-        // transports: ['websocket', 'polling'],
     },
-    // allowEIO3: true
 });
-
 //store all online users inside this map
 global.onlineUsers =  new Map();
  
