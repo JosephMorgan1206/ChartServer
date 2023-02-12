@@ -2,22 +2,13 @@ const express = require("express");
 const app = express(); 
 const cors  = require("cors");
 const mongoose = require("mongoose");
-const https = require("https");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const messageRoute = require("./routes/messagesRoute");
 const socket = require("socket.io");
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header("Access-Control-Allow-Headers", "Content-Type");
-    res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
-    next();
-});
-
 dotenv.config();
-// app.use(cors());
+app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", userRoutes);
@@ -31,20 +22,11 @@ mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.
         console.log("DB Connection Successful!")
     }).catch((err) => console.log(err));
 
-app.listen(process.env.PORT, ()=>{
+const server = app.listen(process.env.PORT, ()=>{
     console.log(`Server started on Port ${process.env.PORT}`);
 });
-const server = https.createServer(app);
 
-const io = socket(server,{
-    cors: {
-        origin: "*",
-        credentials: true,
-        methods: ["GET", "POST"],
-    },
-    transports: ['websocket', 'polling'],
-    allowEIO3: true
-});
+const io = socket.listen(server);
 
 //store all online users inside this map
 global.onlineUsers =  new Map();
