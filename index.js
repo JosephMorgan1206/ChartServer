@@ -27,10 +27,8 @@ mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.
 });
 
 const io = socket(server,{
-    cors: {
-        origin: "*",
-        credentials: true,
-    },
+    transports: ['websocket', 'polling'],
+    allowEIO3: true
 });
 //store all online users inside this map
 global.onlineUsers =  new Map();
