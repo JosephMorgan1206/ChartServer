@@ -36,15 +36,7 @@ mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.
 // });
 const server = https.createServer(app);
 
-const io = socket.listen(server,{
-    cors: {
-        origin: "*",
-        credentials: true,
-        methods: ["GET", "POST"],
-    },
-    transports: ['websocket', 'polling'],
-    allowEIO3: true
-});
+const io = socket.listen(server);
 server.listen(process.env.PORT);
 
 //store all online users inside this map
