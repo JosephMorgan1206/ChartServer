@@ -8,6 +8,7 @@ const messageRoute = require("./routes/messagesRoute");
 const socket = require("socket.io");
 
 dotenv.config();
+mongoose.set('strictQuery', true);
 app.use(cors());
 app.use(express.json());
 
