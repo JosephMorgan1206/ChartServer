@@ -342,7 +342,8 @@ const domain = {
                 num = await Message.countDocuments({checked: false, receiver: req.params.id, sender: o._id})
                 resolve({
                   ...o._doc,
-                  count: num
+                  count: num,
+                  total: count
                 })
               }
               resolve(null);
