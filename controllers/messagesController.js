@@ -3,7 +3,7 @@ const userModel = require("../models/userModel");
 
 module.exports.addMessage = async (req, res, next) => {
     try {
-        const {sender, message, receiver, reply, time} = req.body;
+        const {sender, message, receiver, reply} = req.body;
 
         const data = await messageModel.create({
             message:{
@@ -12,10 +12,10 @@ module.exports.addMessage = async (req, res, next) => {
             sender: sender,
             receiver: receiver,
             reply: reply? reply._id : null,
-            time: time
+            time: Date.now()
         });
 
-        if(data) return res.json({ status: true });
+        if(data) return res.json({ status: true, _id: data._id });
         return res.json({ status: false });
 
     } catch (err) {
@@ -24,12 +24,17 @@ module.exports.addMessage = async (req, res, next) => {
 };
 
 module.exports.removeMessage = async (req, res, next) => {
-    messageModel.findByIdAndDelete(req.params.id, (err, docs)=>{
-        if(err){
-            return res.status(500).send({error: "delete error "})
-        }
-        return res.status(200).send({msg: true});
-    })
+    if(req.params.id == 'all') {
+        let result = await messageModel.remove();
+        return res.json({ status: true });
+    } else {
+        messageModel.findByIdAndDelete(req.params.id, (err, docs)=>{
+            if(err){
+                return res.status(500).send({error: "delete error "})
+            }
+            return res.status(200).send({msg: true});
+        })
+    }
 };
 
 module.exports.recommendMessage = async (req, res, next) => {
@@ -41,9 +46,18 @@ module.exports.recommendMessage = async (req, res, next) => {
     })
 };
 
+module.exports.checkMessage = async (req, res, next) => {
+    messageModel.findByIdAndUpdate(req.params.id, {checked: true}, (err, docs)=>{
+        if(err){
+            return res.status(500).send({error: "delete error "})
+        }
+        return res.status(200).send({msg: true});
+    })
+};
+
 module.exports.updateMessage = async (req, res, next) => {
-    const {message, time} = req.body;
-    messageModel.findByIdAndUpdate(req.params.id, { message:{text: message}, time: time } , (err, docs)=>{
+    const {message} = req.body;
+    messageModel.findByIdAndUpdate(req.params.id, { message:{text: message} } , (err, docs)=>{
         if(err){
             return res.json({ status: false });
         }

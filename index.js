@@ -23,7 +23,7 @@ mongoose.connect("mongodb+srv://Administrator:FuZMP6oS56Uaw9AA@cluster0.quzyuwy.
         console.log("DB Connection Successful!")
     }).catch((err) => console.log(err));
 
- const server = app.listen(process.env.PORT, ()=>{
+const server = app.listen(process.env.PORT, ()=>{
     console.log(`Server started on Port ${process.env.PORT}`);
 });
 
@@ -49,6 +49,13 @@ io.on("connection",(socket)=>{
         }
     });
 
+    socket.on("remove-all",(data)=>{
+        const sendUserSocket = onlineUsers.get(data.receiver);
+        if(sendUserSocket) {
+            io.to(sendUserSocket).emit("remove-all",data);
+        }
+    });
+
     socket.on("update-msg",(data)=>{
         const sendUserSocket = onlineUsers.get(data.receiver);
         if(sendUserSocket) {
@@ -62,4 +69,11 @@ io.on("connection",(socket)=>{
             io.to(sendUserSocket).emit("msg-recieved",data);
         }
     });
+
+    socket.on('typing', (data)=>{
+        const sendUserSocket = onlineUsers.get(data.receiver);
+        if(sendUserSocket) {
+            io.to(sendUserSocket).emit('display', data)
+        }
+    })
 });

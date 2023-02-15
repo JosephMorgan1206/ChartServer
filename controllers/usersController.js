@@ -329,20 +329,31 @@ const domain = {
       let promises = [];
       users.map((o) => {
         let promise = new Promise((resolve, reject) => {
-          Message.countDocuments({checked: false, receiver: req.params.id, sender: o._id}, function(err, c) {
-            o = {
-              ...o._doc,
-              count: c
-            }
-            resolve(o)
-          });
+          Message.countDocuments({
+            $or:[ 
+              { $and: [ {'sender':o._id}, {'receiver':req.params.id} ]}, 
+              { $and: [ {'sender':req.params.id}, {'receiver':o._id} ]} 
+            ]}, async function(err, count) {
+              if(err){
+                return res.status(500).send({error: "get users wrong "})
+              } 
+              if(count > 0) { 
+                var num = 0;
+                num = await Message.countDocuments({checked: false, receiver: req.params.id, sender: o._id})
+                resolve({
+                  ...o._doc,
+                  count: num
+                })
+              }
+              resolve(null);
+          })
         })
         promises.push(promise)
-      })
-
+      })    
       Promise.all(promises).then((ones) => {
-        return res.json(ones);
-      })        
+
+        return res.status(200).json(ones);
+      }) 
     } catch (err) {
       next(err);
     }
