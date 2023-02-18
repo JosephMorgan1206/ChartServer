@@ -33,6 +33,7 @@ const io = socket(server,{
         credentials: true,
     }
 });
+
 //store all online users inside this map
 global.onlineUsers =  new Map();
 io.on("connection",(socket)=>{
