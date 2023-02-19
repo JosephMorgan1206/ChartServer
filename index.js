@@ -76,5 +76,15 @@ io.on("connection",(socket)=>{
         if(sendUserSocket) {
             io.to(sendUserSocket).emit('display', data)
         }
-    })
+    });
+
+    socket.on('image', async (data) => {
+        // const buffer = Buffer.from(image, 'base64');
+        // await fs.writeFile('/tmp/image', buffer).catch(console.error); // fs.promises
+        const sendUserSocket = onlineUsers.get(data.receiver);
+        let image = data.image;
+        if(sendUserSocket) {
+            io.to(sendUserSocket).emit('image', image.toString('base64'))
+        }
+    });
 });
