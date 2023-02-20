@@ -7,13 +7,15 @@ const userRoutes = require("./routes/userRoutes");
 const messageRoute = require("./routes/messagesRoute");
 const fileRoute = require("./routes/filesRoute");
 const socket = require("socket.io");
+const path = require("path");
 
 dotenv.config();
 mongoose.set('strictQuery', true);
 app.use(cors());
 
 app.use(express.json());
-app.use(express.static(__dirname + "/../build"));
+app.use(express.static(path.join(__dirname,'public')))
+app.use('/static',express.static('public'))
 
 app.use("/api/auth", userRoutes);
 app.use("/api/message", messageRoute);
