@@ -72,7 +72,7 @@ module.exports.getAllMessage = async (req, res, next) => {
             $or:[ 
                 { $and: [ {'sender':sender}, {'receiver':receiver} ]}, 
                 { $and: [ {'sender':receiver}, {'receiver':sender} ]} 
-            ]}).populate('reply').limit(100).sort({ time: 1 });
+            ]}).populate('reply').populate('file').limit(100).sort({ time: 1 });
 
         // const messages = await messageModel.find().limit(100).sort({ updatedAt: -1 });
 

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const messageSchema = mongoose.Schema(
   {
     message: {
-      text: { type: String, required: true },
+      text: { type: String, default: '' },
     },
     sender: {
       type: mongoose.Schema.Types.ObjectId,
@@ -27,6 +27,12 @@ const messageSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    file: [
+      { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Files'
+      }
+    ],
     time: { type: Number },
   },
   {
